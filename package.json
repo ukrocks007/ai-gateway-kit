@@ -1,0 +1,69 @@
+{
+  "name": "@ukrocks007/ai-gateway-kit",
+  "version": "0.1.0",
+  "description": "Provider-agnostic AI gateway with capability-based routing, in-memory rate limiting, and observability hooks.",
+  "license": "MIT",
+  "author": "Utkarsh Mehta",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ukrocks007/ai-gateway-kit.git"
+  },
+  "homepage": "https://github.com/ukrocks007/ai-gateway-kit#readme",
+  "bugs": {
+    "url": "https://github.com/ukrocks007/ai-gateway-kit/issues"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "gateway",
+    "rate-limiting",
+    "openai",
+    "gemini",
+    "github-models",
+    "capability-routing",
+    "fallback",
+    "observability"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./providers/github-models": {
+      "types": "./dist/providers/github-models.d.ts",
+      "default": "./dist/providers/github-models.js"
+    },
+    "./providers/gemini": {
+      "types": "./dist/providers/gemini.d.ts",
+      "default": "./dist/providers/gemini.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "peerDependenciesMeta": {
+    "@google/generative-ai": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
