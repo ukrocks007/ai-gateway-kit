@@ -1,6 +1,6 @@
 {
   "name": "ai-gateway-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Provider-agnostic AI gateway with capability-based routing, in-memory rate limiting, and observability hooks.",
   "license": "MIT",
   "author": "Utkarsh Mehta",
