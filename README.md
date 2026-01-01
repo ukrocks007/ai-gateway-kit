@@ -51,7 +51,7 @@ npm install ai-gateway-kit
 ## Quick start
 
 ```ts
-import { createAIGateway } from "@ukrocks007/ai-gateway-kit";
+import { createAIGateway } from "ai-gateway-kit";
 
 const gateway = createAIGateway({
   models: [
