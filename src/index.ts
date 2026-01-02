@@ -7,6 +7,8 @@ export type {
   GatewayMessage,
   GatewayHooks,
   GatewayStateSnapshot,
+  GatewayAgentMapping,
+  GatewayModelRegistryEntry,
   CapabilityRouter,
   Capability,
   ModelDefinition,

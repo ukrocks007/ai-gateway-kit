@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "rootDir": ".",
+    "outDir": "./dist",
+    "noEmit": true,
+    "baseUrl": "..",
+    "paths": {
+      "ai-gateway-kit": ["./dist/index.d.ts"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}
