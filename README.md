@@ -51,7 +51,7 @@ npm install ai-gateway-kit
 ## Quick start
 
 ```ts
-import { createAIGateway } from "ai-gateway-kit";
+import { createAIGateway, createGitHubModelsProvider } from "ai-gateway-kit";
 
 const gateway = createAIGateway({
   models: [
@@ -63,10 +63,9 @@ const gateway = createAIGateway({
     }
   ],
   providers: {
-    github: {
-      type: "github-models",
+    github: createGitHubModelsProvider({
       token: process.env.GITHUB_TOKEN!
-    }
+    })
   }
 });
 
@@ -120,7 +119,40 @@ You can subscribe to lifecycle events without taking a dependency on any logging
 - `onFallback` - When falling back to another model
 - `onError` - When errors occur
 
-**EExamples
+**Example:** [examples/09-observability-hooks.ts](./examples/09-observability-hooks.ts)
+
+```ts
+import { createAIGateway, createGitHubModelsProvider, type GatewayHooks } from "ai-gateway-kit";
+
+const hooks: GatewayHooks = {
+  onRequestStart: (event) => {
+    console.log(`Starting: ${event.modelId}`);
+  },
+  onRequestEnd: (event) => {
+    const duration = event.endedAt - event.startedAt;
+    console.log(`${event.ok ? 'Success' : 'Failed'}: ${event.modelId} (${duration}ms)`);
+  },
+  onRateLimit: (event) => {
+    console.log(`Rate limit: ${event.modelId} - ${event.decision.reason}`);
+  },
+  onFallback: (event) => {
+    console.log(`Fallback: ${event.fromModelId} → ${event.toModelId}`);
+  },
+  onError: (event) => {
+    console.error(`Error: ${event.modelId} - ${event.error.message}`);
+  }
+};
+
+const gateway = createAIGateway({
+  models: [...],
+  providers: {
+    github: createGitHubModelsProvider({ token: process.env.GITHUB_TOKEN! })
+  },
+  hooks
+});
+```
+
+## Examples
 
 The [examples](./examples/) directory contains comprehensive examples for all features:
 
@@ -140,26 +172,6 @@ The [examples](./examples/) directory contains comprehensive examples for all fe
 | [12-dynamic-registration.ts](./examples/12-dynamic-registration.ts) | Add models at runtime |
 
 **[View all examples →](./examples/)**
-
-## xample:** [examples/09-observability-hooks.ts](./examples/09-observability-hooks.ts)
-
-```ts
-const gateway = createAIGateway({
-  models: [...],
-  providers: {...},
-  hooks: {
-    onRequestStart: (event) => {
-      logger.info({ requestId: event.requestId, model: event.modelId });
-    },
-    onRateLimit: (event) => {
-      metrics.increment("rate_limit", { model: event.modelId });
-    },
-    onError: (event) => {
-      errorTracker.capture(event.error);
-    }
-  }
-});
-```
 
 ## License
 
